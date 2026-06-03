@@ -1,17 +1,20 @@
+// Importamos React
 import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
 
+// Importamos ReactDOM para renderizar en el navegador
+import ReactDOM from 'react-dom/client';
+
+// Importamos el componente principal
+import App from './App.jsx';
+
+import './index.css';
+
+// Creamos la raíz de la aplicación en el div con id "root"
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
+// Renderizamos la app
 root.render(
-  <React.StrictMode>
-    <App />
+  <React.StrictMode> {/* Modo estricto para detectar errores */}
+    <App /> {/* Componente principal */}
   </React.StrictMode>
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
