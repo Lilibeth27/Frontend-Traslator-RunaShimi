@@ -70,7 +70,7 @@ const TranslatorPage = () => {
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
-        backgroundColor: '#ffffff',
+        
         overflowX: 'hidden'
       }}
     >

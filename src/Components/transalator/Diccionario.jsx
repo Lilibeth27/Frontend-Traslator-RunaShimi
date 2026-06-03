@@ -6,7 +6,7 @@ import { Search, Copy, Check } from 'lucide-react';
 
 const API_URL = "http://localhost:4000/api/dictionary";
 
-// Tonos tierra más vivos para la interfaz (¡Tus nuevos colores!)
+// Tonos tierra más vivos para la interfaz
 const colors = ["#FFC300", "#6A994E", "#E03244", "#1D82E6", "#6c2477", "#FFC300"];
 
 const defaultPalabras = [
@@ -43,7 +43,6 @@ const Diccionario = () => {
       const response = await fetch(url);
       const data = await response.json();
       if (data.length > 0) {
-        // CORRECCIÓN: Forzamos el uso de los nuevos colores vivos ignorando p.color viejo
         setPalabras(data.map((p, i) => ({
           ...p,
           color: colors[i % colors.length] 
@@ -104,7 +103,7 @@ const Diccionario = () => {
   const styles = {
     container: { 
       width: '100%', 
-      maxWidth: isMobile ? '22rem' : '65rem', 
+      maxWidth: '65rem', 
       margin: '0 auto', 
       padding: isMobile ? '1rem 0.5rem' : '2rem', 
       minHeight: '100vh', 
@@ -113,48 +112,55 @@ const Diccionario = () => {
       zIndex: 1
     },
     headerTitle: { 
-      fontSize: isMobile ? '1.6rem' : '2rem', 
-      color: '#3b6d2a', 
+      fontSize: isMobile ? '2rem' : '3rem', 
+      color: '#24521c', 
       textAlign: 'center', 
-      marginBottom: '1.5rem', 
+      marginBottom: '2rem', 
       display: 'flex', 
       alignItems: 'center', 
       justifyContent: 'center', 
-      gap: '10px' 
+      gap: '10px',
+      fontWeight: '600'
     },
-    searchBox: { 
-      position: 'relative', 
-      width: '100%', 
-      maxWidth: '50rem', 
-      margin: '0 auto 1.5rem auto' 
+    searchContainer: {
+      display: 'flex',
+      gap: '15px',
+      width: '100%',
+      maxWidth: '55rem',
+      margin: '0 auto 3rem auto',
+    },
+    searchBoxWrapper: {
+      position: 'relative',
+      flex: 1,
     },
     input: { 
       width: '100%', 
-      padding: isMobile ? '0.8rem 1rem 0.8rem 2.5rem' : '1rem 7rem 1rem 3.5rem', 
-      borderRadius: '50px', 
-      border: '2px solid #3b6d2a', 
-      fontSize: '1rem', 
+      padding: '1.2rem 1rem 1.2rem 3.5rem', 
+      borderRadius: '12px', 
+      border: 'none', 
+      fontSize: '1.1rem', 
       outline: 'none', 
-      boxSizing: 'border-box' 
+      boxSizing: 'border-box',
+      boxShadow: '0 4px 15px rgba(0,0,0,0.05)', 
+      backgroundColor: 'white'
     },
     btnBuscar: { 
-      position: 'absolute', 
-      right: '5px', 
-      top: '50%', 
-      transform: 'translateY(-50%)', 
-      backgroundColor: '#3b7e27', 
-      border: '1.5px solid #3b6d2a', 
-      borderRadius: '25px', 
-      padding: '0.5rem 1.5rem', 
+      backgroundColor: 'rgba(168, 190, 161, 0.4)', 
+      border: '1px solid #7c9b73', 
+      borderRadius: '12px', 
+      padding: '0 2.5rem', 
       fontWeight: 'bold', 
+      color: '#24521c',
       display: isMobile ? 'none' : 'block', 
-      cursor: 'pointer' 
+      cursor: 'pointer',
+      fontSize: '1rem',
+      transition: 'all 0.2s ease'
     },
     alphabet: { 
       display: 'flex', 
       flexWrap: 'wrap', 
       justifyContent: 'center', 
-      gap: isMobile ? '10px' : '18px', 
+      gap: isMobile ? '10px' : '15px', 
       marginBottom: '3rem' 
     },
     letterContainer: {
@@ -164,19 +170,23 @@ const Diccionario = () => {
       alignItems: 'center',
     },
     letter: { 
-      fontSize: isMobile ? '1rem' : '1.4rem', 
-      fontWeight: '900', 
-      color: '#3b6d2a', 
+      fontSize: '1rem', 
+      fontWeight: '600', 
+      color: '#1e3815', 
       cursor: 'pointer',
-      padding: isMobile ? '4px 8px' : '6px 12px',
-      borderRadius: '50%',
-      transition: 'all 0.2s ease',
+      width: isMobile ? '35px' : '45px', 
+      height: isMobile ? '35px' : '45px',
+      backgroundColor: 'white', 
+      borderRadius: '50%', 
       display: 'flex',
       alignItems: 'center',
-      justifyContent: 'center'
+      justifyContent: 'center',
+      boxShadow: '0 2px 8px rgba(0,0,0,0.06)', 
+      transition: 'all 0.2s ease',
     },
     letterActive: {
       border: '2px solid #5D4037',
+      boxShadow: 'inset 0 0 5px rgba(0,0,0,0.1)'
     },
     tooltip: {
       position: 'absolute',
@@ -200,6 +210,7 @@ const Diccionario = () => {
       gap: '1.2rem', 
       marginBottom: '2rem' 
     },
+    // RESTAURADO: Estilo original de las tarjetas con la ola
     card: { 
       backgroundColor: 'white', 
       borderRadius: '20px', 
@@ -209,7 +220,7 @@ const Diccionario = () => {
       overflow: 'hidden', 
       display: 'flex', 
       flexDirection: 'column', 
-      boxShadow: '0 4px 10px rgba(255, 253, 253, 0.05)' 
+      boxShadow: '0 4px 10px rgba(0, 0, 0, 0.05)' 
     },
     cardDecoration: (color) => ({ 
       position: 'absolute', 
@@ -217,7 +228,7 @@ const Diccionario = () => {
       left: 0, 
       width: '100%', 
       height: '15px', 
-      backgroundColor: color 
+      backgroundColor: color || '#FFC300' // Color por defecto si falla
     }),
     waveSvg: { width: '100%', height: '100%', display: 'block' },
     contentRow: { 
@@ -253,22 +264,24 @@ const Diccionario = () => {
 
   return (
     <div style={styles.container}>
-
+      
       {/* Título */}
       <h1 style={styles.headerTitle}>Diccionario Runa Shimi 📖</h1>
 
       {/* Buscador */}
-      <div style={styles.searchBox}>
-        <Search size={18} style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)' }} />
-        <input 
-          style={styles.input} 
-          placeholder="Buscar palabra..." 
-          value={searchTerm}
-          onChange={(e) => {
-            setSearchTerm(e.target.value); 
-            setPaginaActual(1); 
-          }}
-        />
+      <div style={styles.searchContainer}>
+        <div style={styles.searchBoxWrapper}>
+          <Search size={20} color="#888" style={{ position: 'absolute', left: '15px', top: '50%', transform: 'translateY(-50%)' }} />
+          <input 
+            style={styles.input} 
+            placeholder="Buscar palabra..." 
+            value={searchTerm}
+            onChange={(e) => {
+              setSearchTerm(e.target.value); 
+              setPaginaActual(1); 
+            }}
+          />
+        </div>
         <button style={styles.btnBuscar}>Buscar</button>
       </div>
 
@@ -297,7 +310,7 @@ const Diccionario = () => {
         ))}
       </div>
 
-      {/* Tarjetas */}
+      {/* Tarjetas con OLA DE COLORES restauradas */}
       <div style={styles.grid}>
         {itemsActuales.map((p, index) => (
           <div key={p._id || index} style={styles.card}>

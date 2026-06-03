@@ -16,19 +16,25 @@ const Acerca = () => {
 
   //Estilos 
   const styles = {
-    //Contenedor principal 
+    // Contenedor general para permitir fondos de ancho completo
+    wrapper: {
+      width: '100%',
+      display: 'flex',
+      flexDirection: 'column',
+    },
+    //Contenedor principal (contenido centrado)
     container: {
       width: '100%',
-      // Limitamos el ancho en celular para forzar el centrado y proteger el layout del sidebar
+      // CLAVE: Limitamos el ancho en celular para forzar el centrado y proteger el layout del sidebar
       maxWidth: isMobile ? '22rem' : '53.125rem', 
-      margin: '4rem auto 3rem',
-      padding: isMobile ? '0 0.5rem' : '0',
+      margin: '4rem auto 0', // Le quitamos el margen inferior para pegar el footer
+      padding: isMobile ? '0 0.5rem 3rem' : '0 0 4rem',
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
       boxSizing: 'border-box',
       position: 'relative',
-      zIndex: 1, // Permite que el menú lateral pase por encima sin problema
+      zIndex: 1, 
       clear: 'both',
     },
     // Titulo y Icono 
@@ -43,7 +49,7 @@ const Acerca = () => {
     },
     // Estilo del titulo 
     headerText: {
-      fontSize: isMobile ? '1.6rem' : '2rem', // Texto adaptado a celular
+      fontSize: isMobile ? '1.6rem' : '2rem', 
       color: '#3b6d2a',
       margin: 0,
     },
@@ -60,9 +66,8 @@ const Acerca = () => {
     //grid de tarjetas 
     grid: {
       display: 'grid',
-      //cambia a una sola columna en movil
       gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)',
-      gap: isMobile ? '1.5rem' : '1rem', // Un poco más de separación vertical en móvil
+      gap: isMobile ? '1.5rem' : '1rem', 
       width: '100%',
       boxSizing: 'border-box',
     },
@@ -126,33 +131,45 @@ const Acerca = () => {
       lineHeight: '1.6',
       fontWeight: '500',
     },
+   
+    greenFooter: {
+      backgroundColor: '#2a521a', 
+      width: '100vw',
+      marginLeft: 'calc(-50vw + 50%)',      
+      padding: isMobile ? '3rem 1rem' : '4rem 2rem',
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      boxSizing: 'border-box',
+    },
+    //texto de advertencia final (ahora arriba de la línea)
+    disclaimer: {
+      marginBottom: '2rem',
+      fontSize: isMobile ? '0.8rem' : '0.9rem',
+      color: 'rgba(255, 255, 255, 0.95)', // Blanco ligeramente suave
+      textAlign: 'center',
+      fontWeight: '400',
+      maxWidth: '53.125rem',
+      lineHeight: '1.6'
+    },
     //linea de pie de pagina 
     footerLine: {
-      marginTop: '3.125rem',
-      borderTop: '0.125rem solid #d7c9b8',
+      borderTop: '1px solid rgba(255, 255, 255, 0.2)', // Línea sutil blanca
       width: '100%',
-      paddingTop: '0.9375rem',
+      maxWidth: '53.125rem', // Mantiene el contenido alineado con arriba
+      paddingTop: '1.5rem',
       display: 'flex',
       flexDirection: isMobile ? 'column' : 'row',
-      justifyContent: 'space-between',
+      justifyContent: 'center',
       alignItems: 'center',
-      gap: '0.625rem',
+      gap: isMobile ? '0.5rem' : '2rem',
     },
     //texto del pie de pagina
     footerText: {
-      color: '#5f6b5c',
-      fontSize: isMobile ? '0.75rem' : '0.875rem', // Ligeramente más pequeño en celular
-      fontWeight: 'bold',
+      color: 'white', // Texto blanco para contrastar
+      fontSize: isMobile ? '0.75rem' : '0.85rem',
+      fontWeight: '500',
       textAlign: 'center',
-    },
-    //texto de advertencia final
-    disclaimer: {
-      marginTop: '0.9375rem',
-      fontSize: isMobile ? '0.65rem' : '0.75rem',
-      color: '#5f6b5c',
-      textAlign: 'center',
-      fontWeight: 'bold',
-      padding: isMobile ? '0 1rem' : '0',
     }
   };
 
@@ -187,7 +204,6 @@ const Acerca = () => {
     },
     {
       title: 'Preservación',
-      // Tono tierra más vibrante para acompañar al terracota y al verde
       color: '#E03244', 
       text: 'Ayuda a preservar esta lengua ancestral. Cada palabra que aprendas contribuye a mantener viva la cultura de los pueblos andinos. ☀️',
       icon: '🤲',
@@ -203,69 +219,72 @@ const Acerca = () => {
 
   //Renderizamos
   return (
-    <div style={styles.container}>
-      {/* Título Principal */}
-      <div style={styles.headerContainer}>
-        <h2 style={styles.headerText}>Acerca del Runa Shimi</h2>
-        <div style={styles.iconCircle}>🌱</div>
-      </div>
+    <div style={styles.wrapper}>
+      
+      {/* Contenido Superior Restringido en Ancho */}
+      <div style={styles.container}>
+        {/* Título Principal */}
+        <div style={styles.headerContainer}>
+          <h2 style={styles.headerText}>Acerca del Runa Shimi</h2>
+          <div style={styles.iconCircle}>🌱</div>
+        </div>
 
-      {/* Tarjetas */}
-      <div style={styles.grid}>
-        {cardsInfo.map((card, index) => (
-          <div key={index} style={styles.card}>
-            
-             {/* Parte superior decorativa */}
-            <div style={styles.blobContainer}>
-              {card.svg}
-              {/* Icono flotante */}
-              <div style={styles.iconBadge}>
-                {card.icon}
+        {/* Tarjetas */}
+        <div style={styles.grid}>
+          {cardsInfo.map((card, index) => (
+            <div key={index} style={styles.card}>
+              
+               {/* Parte superior decorativa */}
+              <div style={styles.blobContainer}>
+                {card.svg}
+                {/* Icono flotante */}
+                <div style={styles.iconBadge}>
+                  {card.icon}
+                </div>
               </div>
+              
+              {/* Título de la tarjeta */}
+              <h3 style={{ ...styles.cardTitle, color: card.color }}>
+                {card.title}
+              </h3>
+              
+               {/* Texto de la tarjeta */}
+              <p style={styles.cardText}>
+                {card.text}
+              </p>
             </div>
-            
-            {/* Título de la tarjeta */}
-            <h3 style={{ ...styles.cardTitle, color: card.color }}>
-              {card.title}
-            </h3>
-            
-             {/* Texto de la tarjeta */}
-            <p style={styles.cardText}>
-              {card.text}
-            </p>
-          </div>
-        ))}
+          ))}
+        </div>
+
+        {/* Sección: Sobre los Creadores */}
+        <div style={{ textAlign: 'center', margin: '40px 0 0 0' }}>
+          <h3 style={{ fontSize: '1.1rem', color: '#24521c', marginBottom: '8px' }}>
+            👩🏽‍💻 Sobre los Creadores 👨🏽‍💻
+          </h3>
+          <p style={{ fontSize: '0.9rem', color: '#5f6b5c', maxWidth: '750px', margin: '0 auto', lineHeight: '1.5' }}>
+            Somos Juan Miguel cedeño y Lilibeth Andrea Anacona , estudiantes de la <strong>Fundación Universitaria de Popayán (FUP)</strong>. 
+            Desarrollamos esta aplicación como un proyecto académico dedicado a la preservación y revitalización del idioma Runa Shimi.
+          </p>
+        </div>
       </div>
 
-      {/* Footer del componente/ pie de pagina */}
-      
-     
-     {/* Sección: Sobre los Creadores */}
-      <div style={{ textAlign: 'center', margin: '30px 0 20px 0' }}>
-        <h3 style={{ fontSize: '1.1rem', color: '#24521c', marginBottom: '8px' }}>
-          👩🏽‍💻 Sobre los Creadores 👨🏽‍💻
-        </h3>
-        <p style={{ fontSize: '0.9rem', color: '#5f6b5c', maxWidth: '750px', margin: '0 auto', lineHeight: '1.5' }}>
-          Somos Juan Miguel cedeño  y Lilibeth Andrea Anacona , estudiantes de la <strong>Fundación Universitaria de Popayán (FUP)</strong>. 
-          Desarrollamos esta aplicación como un proyecto académico dedicado a la preservación y revitalización del idioma Runa Shimi.
+      {/* NUEVO: Banda Verde Completa Inferior */}
+      <div style={styles.greenFooter}>
+        
+        {/* nota final colocada arriba de la línea, como en la imagen */}
+        <p style={styles.disclaimer}>
+          ✨ Este traductor es una herramienta educativa. Las traducciones pueden variar según la región y dialecto. ✨
         </p>
+
+        {/* Footer con línea separadora */}
+        <div style={styles.footerLine}>
+          <span style={styles.footerText}>Preservando las lenguas ancestrales ⛰️</span>
+          <span style={styles.footerText}>Hecho con amor para la comunidad 🌍</span>
+        </div>
+
       </div>
 
-      {/* Footer del componente pie de pagina */}
-      <div style={styles.footerLine}>
-        <span style={styles.footerText}>Preservando las lenguas ancestrales ⛰️</span>
-        <span style={styles.footerText}>Hecho con amor para la comunidad 🌍</span>
-      </div>
-      
-      {/* nota final */}
-      <p style={styles.disclaimer}>
-        ✨ Este traductor es una herramienta educativa. Las traducciones pueden variar según la región y dialecto. ✨
-      </p>
     </div>
-  
-  
-      
-    
   );
 };
 

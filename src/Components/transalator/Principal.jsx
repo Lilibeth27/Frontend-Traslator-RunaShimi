@@ -21,7 +21,8 @@ const Principal = () => {
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
-      padding: isMobile ? '2rem 1rem' : '4rem 2rem',
+      
+      padding: isMobile ? '2rem 1rem' : '7rem 2rem 4rem 2rem',
       backgroundColor: '#f6f7f3',
       boxSizing: 'border-box',
       overflowX: 'hidden'
