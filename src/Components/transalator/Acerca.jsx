@@ -19,7 +19,7 @@ const Acerca = () => {
     //Contenedor principal 
     container: {
       width: '100%',
-      // CLAVE: Limitamos el ancho en celular para forzar el centrado y proteger el layout del sidebar
+      // Limitamos el ancho en celular para forzar el centrado y proteger el layout del sidebar
       maxWidth: isMobile ? '22rem' : '53.125rem', 
       margin: '4rem auto 3rem',
       padding: isMobile ? '0 0.5rem' : '0',
@@ -187,7 +187,7 @@ const Acerca = () => {
     },
     {
       title: 'Preservación',
-      // Tono ocre/tierra más vibrante para acompañar al terracota y al verde
+      // Tono tierra más vibrante para acompañar al terracota y al verde
       color: '#E03244', 
       text: 'Ayuda a preservar esta lengua ancestral. Cada palabra que aprendas contribuye a mantener viva la cultura de los pueblos andinos. ☀️',
       icon: '🤲',
@@ -251,7 +251,7 @@ const Acerca = () => {
         </p>
       </div>
 
-      {/* Footer del componente/ pie de pagina */}
+      {/* Footer del componente pie de pagina */}
       <div style={styles.footerLine}>
         <span style={styles.footerText}>Preservando las lenguas ancestrales ⛰️</span>
         <span style={styles.footerText}>Hecho con amor para la comunidad 🌍</span>
