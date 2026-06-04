@@ -4,9 +4,7 @@ import React, { useState, useEffect } from 'react';
 // Importamos iconos
 import { ArrowLeftRight, RefreshCw, Copy } from 'lucide-react';
 
-// Importamos componentes 
-import Diccionario from './Diccionario';
-import Acerca from './Acerca';
+
 
 const API_URL = "http://localhost:4000/api";
 const translateAPI = API_URL + "/translate";
@@ -355,14 +353,6 @@ const Traductor = ({ onGoToLogin }) => {
       </div> 
       {/* FIN DEL CUADRO BLANCO GRANDE */}
 
-      {/* --- SECCIONES COMPLEMENTARIAS ABAJO DEL TRADUCTOR --- */}
-      <div style={{ width: '100%', maxWidth: '65rem', marginTop: '2rem' }}>
-        <Diccionario />
-      </div>
-
-      <div style={{ width: '100%', maxWidth: '65rem', marginTop: '2rem' }}>
-        <Acerca />
-      </div>
 
     </div> 
   );

@@ -1,219 +1,191 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
-
 import logo from '../../assets/logo.png';
-const Header = () => {
 
+const Header = ({ onNavigate }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
 
   useEffect(() => {
-
     const handleResize = () => {
       setIsMobile(window.innerWidth < 768);
     };
 
     window.addEventListener('resize', handleResize);
-
     return () => window.removeEventListener('resize', handleResize);
-
   }, []);
 
-  const styles = {
+  const goToSection = (sectionId) => {
+    const section = document.getElementById(sectionId);
+    if (section) {
+      section.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+      });
+    }
+    setMobileMenuOpen(false);
+  };
 
+  const styles = {
     header: {
       backgroundColor: '#FFFFFF',
       borderBottom: '1px solid #E5E7EB',
       position: 'fixed',
       top: 0,
+      left: 0,
       zIndex: 1000,
       width: '100%',
-      boxShadow: '0 2px 8px rgba(0,0,0,0.05)'
+      boxShadow: '0 2px 8px rgba(0,0,0,0.05)',
     },
-
-  container: {
-  width: '100%',
-  maxWidth: '1400px',
-  margin: '0 auto',
-  padding: '0 1.5rem',
-  boxSizing: 'border-box'
-},
-
+    container: {
+      width: '100%',
+      maxWidth: '1400px',
+      margin: '0 auto',
+      padding: '0 1.5rem',
+      boxSizing: 'border-box',
+    },
     row: {
       height: '80px',
       display: 'flex',
       justifyContent: 'space-between',
-      alignItems: 'center'
+      alignItems: 'center',
     },
-
     logoContainer: {
       display: 'flex',
       alignItems: 'center',
-      gap: '1rem'
+      gap: '1rem',
     },
-
     logo: {
       width: '55px',
       height: '55px',
-      objectFit: 'contain'
+      objectFit: 'contain',
     },
-
     textContainer: {
       display: 'flex',
-      flexDirection: 'column'
+      flexDirection: 'column',
     },
-
     title: {
       margin: 0,
       color: '#24521C',
       fontSize: '2rem',
       fontWeight: '700',
-      lineHeight: '1'
+      lineHeight: '1',
     },
-
     subtitle: {
       margin: '4px 0 0 0',
       color: '#6B7280',
-      fontSize: '0.9rem'
+      fontSize: '0.9rem',
     },
-
     desktopMenu: {
       display: 'flex',
       alignItems: 'center',
-      gap: '2.5rem'
+      gap: '2rem',
     },
-
-    link: {
+    linkButton: {
+      background: 'none',
+      border: 'none',
+      cursor: 'pointer',
+      padding: 0,
       color: '#24521C',
-      textDecoration: 'none',
       fontSize: '1rem',
-      fontWeight: '500'
+      fontWeight: '500',
     },
-
     mobileButton: {
       background: 'none',
       border: 'none',
       cursor: 'pointer',
-      color: '#24521C'
+      color: '#24521C',
+      padding: 0,
     },
-
     mobileMenu: {
       display: 'flex',
       flexDirection: 'column',
       paddingBottom: '1rem',
-      gap: '1rem'
+      gap: '1rem',
     },
-
     mobileLink: {
       color: '#24521C',
       textDecoration: 'none',
       fontSize: '1rem',
-      padding: '0.5rem 0'
-    }
-
+      padding: '0.5rem 0',
+      display: 'inline-block',
+    },
   };
 
   return (
     <header style={styles.header}>
-
       <div style={styles.container}>
-
         <div style={styles.row}>
-
-          {/* Logo */}
           <div style={styles.logoContainer}>
-
-            <img
-              src={logo}
-              alt="Runa Shimi"
-              style={styles.logo}
-            />
-
+            <img src={logo} alt="Runa Shimi" style={styles.logo} />
             <div style={styles.textContainer}>
-              <h1 style={styles.title}>
-                Runa Shimi
-              </h1>
-
-              {!isMobile && (
-                <p style={styles.subtitle}>
-                  Traductor Kichwa
-                </p>
-              )}
+              <h1 style={styles.title}>Runa Shimi</h1>
+              {!isMobile && <p style={styles.subtitle}>Traductor Yanakuna</p>}
             </div>
-
           </div>
 
-          {/* Menú escritorio */}
-          {!isMobile && (
+          {!isMobile ? (
             <nav style={styles.desktopMenu}>
-
-              <a href="#acerca" style={styles.link}>
-                Acerca de
-              </a>
-
-              <a href="#diccionario" style={styles.link}>
+              <button style={styles.linkButton} onClick={() => onNavigate('principal')}>
+                Principal
+              </button>
+              <button style={styles.linkButton} onClick={() => onNavigate('traductor')}>
+                Traductor
+              </button>
+              <button style={styles.linkButton} onClick={() => onNavigate('diccionario')}>
                 Diccionario
-              </a>
-
-              <a href="#cultura" style={styles.link}>
+              </button>
+              <button style={styles.linkButton} onClick={() => onNavigate('acerca')}>
+                Acerca de
+              </button>
+              <button style={styles.linkButton} onClick={() => onNavigate('cultura')}>
                 Cultura
-              </a>
-
+              </button>
             </nav>
-          )}
-
-          {/* Menú móvil */}
-          {isMobile && (
+          ) : (
             <button
               style={styles.mobileButton}
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             >
-              {mobileMenuOpen ? (
-                <X size={28} />
-              ) : (
-                <Menu size={28} />
-              )}
+              {mobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
             </button>
           )}
-
         </div>
 
-        {/* Menú desplegable móvil */}
         {isMobile && mobileMenuOpen && (
-
           <nav style={styles.mobileMenu}>
-
-            <a
-              href="#acerca"
-              style={styles.mobileLink}
-              onClick={() => setMobileMenuOpen(false)}
+            <button
+              style={styles.mobileButton}
+              onClick={() => goToSection('principal')}
             >
-              Acerca de
-            </a>
+              <span style={styles.mobileLink}>Principal</span>
+            </button>
 
-            <a
-              href="#diccionario"
-              style={styles.mobileLink}
-              onClick={() => setMobileMenuOpen(false)}
+            <button
+              style={styles.mobileButton}
+              onClick={() => goToSection('traductor')}
             >
-              Diccionario
-            </a>
+              <span style={styles.mobileLink}>Traductor</span>
+            </button>
 
-            <a
-              href="#cultura"
-              style={styles.mobileLink}
-              onClick={() => setMobileMenuOpen(false)}
+            <button
+              style={styles.mobileButton}
+              onClick={() => goToSection('diccionario')}
             >
-              Cultura
-            </a>
+              <span style={styles.mobileLink}>Diccionario</span>
+            </button>
 
+            <button
+              style={styles.mobileButton}
+              onClick={() => goToSection('acerca')}
+            >
+              <span style={styles.mobileLink}>Acerca de</span>
+            </button>
+
+            
           </nav>
-
         )}
-
       </div>
-
     </header>
   );
 };
